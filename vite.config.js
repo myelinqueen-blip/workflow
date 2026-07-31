@@ -5,5 +5,5 @@ import react from "@vitejs/plugin-react";
 // 예: https://myelinqueen-blip.github.io/workflow-app/
 export default defineConfig({
   plugins: [react()],
-  base: "/workflow-app/",
+  base: "/workflow/",
 });
