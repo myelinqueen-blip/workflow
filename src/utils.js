@@ -1,36 +1,32 @@
-/* ─── Progress calculators ─── */
+/* ── Progress ── */
 export const calcTaskPct = (subs = []) =>
   !subs.length ? 0 : Math.round(subs.filter(s => s.status === "done").length / subs.length * 100);
-
 export const calcProjPct = (tasks = []) =>
   !tasks.length ? 0 : Math.round(tasks.reduce((a, t) => a + calcTaskPct(t.subtasks), 0) / tasks.length);
 
-/* ─── Date helpers ─── */
+/* ── Date ── */
 export const fmtDate = iso => {
   if (!iso) return null;
   const d = new Date(iso);
   return `${d.getMonth()+1}/${d.getDate()}(${["일","월","화","수","목","금","토"][d.getDay()]})`;
 };
-
 export const todayISO = () => new Date().toISOString().slice(0, 10);
-
 export const todayStr = () => {
   const d = new Date();
   return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
 };
 
-/* ─── Subtask sort ─── */
+/* ── Sort subtasks ── */
 export const sortSubs = list => {
   const auto = list.filter(s => !s.orderOverridden).sort((a, b) => {
     if (!a.dueDate && !b.dueDate) return a.order - b.order;
     if (!a.dueDate) return 1; if (!b.dueDate) return -1;
     return new Date(a.dueDate) - new Date(b.dueDate);
   });
-  const manual = list.filter(s => s.orderOverridden).sort((a, b) => a.order - b.order);
-  return [...auto, ...manual];
+  return [...auto, ...list.filter(s => s.orderOverridden).sort((a, b) => a.order - b.order)];
 };
 
-/* ─── JSON safe parse ─── */
+/* ── JSON parse ── */
 export const safeJSON = raw => {
   for (const re of [/```(?:json)?\s*([\s\S]*?)```/, /(\[[\s\S]*?\])/s, /(\{[\s\S]*?\})/s]) {
     const m = raw.match(re);
@@ -39,25 +35,24 @@ export const safeJSON = raw => {
   return null;
 };
 
-/* ─── Claude API ─── */
+/* ── Claude API ── */
 export const callClaude = async (prompt, system = "", useSearch = false) => {
   const body = {
-    model: "claude-sonnet-4-20250514",
-    max_tokens: 2000,
-    system,
-    messages: [{ role:"user", content:prompt }],
+    model: "claude-sonnet-4-20250514", max_tokens: 2000, system,
+    messages: [{ role: "user", content: prompt }],
   };
-  if (useSearch) body.tools = [{ type:"web_search_20250305", name:"web_search" }];
-  const res  = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "Content-Type":"application/json" },
-    body: JSON.stringify(body),
+  if (useSearch) body.tools = [{ type: "web_search_20250305", name: "web_search" }];
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body),
   });
   const data = await res.json();
   return (data.content || []).filter(b => b.type === "text").map(b => b.text).join("\n");
 };
 
-/* ─── Seed data ─── */
+/* ── ID generator ── */
+export const mkId = () => Math.random().toString(36).slice(2, 9);
+
+/* ── Seed data ── */
 export const SEED_DATA = {
   clients: [
     {
@@ -100,8 +95,7 @@ export const SEED_DATA = {
               ]},
           ]},
       ]},
-    {
-      id:"cl2", name:"현대카드", color:"#f43f5e", ownerId:"local", invitedEmails:[],
+    { id:"cl2", name:"현대카드", color:"#f43f5e", ownerId:"local", invitedEmails:[],
       projects:[
         { id:"pr3", name:"DIVE 2025 행사 기획", description:"브랜드 뮤직 페스티벌 종합 기획", status:"active",
           tasks:[

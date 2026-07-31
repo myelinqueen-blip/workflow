@@ -2,20 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 전역 스크롤바 스타일 */
-::-webkit-scrollbar { width: 4px; height: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
-
-/* date input 다크모드 */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1) opacity(0.4);
-  cursor: pointer;
+:root {
+  --bg:      #09090e;
+  --bg2:     #111120;
+  --border:  rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.12);
+  --text:    #ffffff;
+  --text2:   #e2e8f0;
+  --text3:   #94a3b8;
+  --text4:   #64748b;
+  --text5:   #475569;
+  --card:    rgba(255,255,255,0.015);
+  --input:   rgba(0,0,0,0.3);
+  --hover:   rgba(255,255,255,0.04);
+  --sidebar: rgba(9,9,14,0.7);
 }
-input[type="date"]::-webkit-calendar-picker-indicator:hover {
-  filter: invert(1) opacity(0.7);
+
+html:not(.dark) {
+  --bg:      #f1f5f9;
+  --bg2:     #ffffff;
+  --border:  rgba(0,0,0,0.08);
+  --border2: rgba(0,0,0,0.14);
+  --text:    #0f172a;
+  --text2:   #1e293b;
+  --text3:   #475569;
+  --text4:   #94a3b8;
+  --text5:   #cbd5e1;
+  --card:    rgba(0,0,0,0.02);
+  --input:   rgba(0,0,0,0.05);
+  --hover:   rgba(0,0,0,0.04);
+  --sidebar: rgba(255,255,255,0.95);
 }
 
-/* 기본 선택 색상 */
-::selection { background: rgba(99,102,241,0.3); color: #fff; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans',system-ui,sans-serif; }
+::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+.dark input[type="date"]::-webkit-calendar-picker-indicator { filter:invert(1) opacity(.4); }
+input[type="date"]::-webkit-calendar-picker-indicator { cursor:pointer; }
+::selection { background:rgba(99,102,241,.25); }
