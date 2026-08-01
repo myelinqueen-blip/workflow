@@ -3,41 +3,28 @@
 @tailwind utilities;
 
 :root {
-  --bg:      #09090e;
-  --bg2:     #111120;
-  --border:  rgba(255,255,255,0.08);
-  --border2: rgba(255,255,255,0.12);
-  --text:    #ffffff;
-  --text2:   #e2e8f0;
-  --text3:   #94a3b8;
-  --text4:   #64748b;
-  --text5:   #475569;
-  --card:    rgba(255,255,255,0.015);
-  --input:   rgba(0,0,0,0.3);
-  --hover:   rgba(255,255,255,0.04);
-  --sidebar: rgba(9,9,14,0.7);
+  --bg:#f1f5f9; --bg2:#ffffff; --bg3:rgba(255,255,255,0.9);
+  --border:rgba(0,0,0,0.08); --border2:rgba(0,0,0,0.14);
+  --text:#0f172a; --text2:#1e293b; --text3:#475569;
+  --text4:#94a3b8; --text5:#cbd5e1;
+  --card:rgba(0,0,0,0.02); --input:rgba(0,0,0,0.05);
+  --hover:rgba(0,0,0,0.04); --sidebar:rgba(248,249,252,0.98);
+  --shadow:0 1px 3px rgba(0,0,0,0.08);
 }
-
-html:not(.dark) {
-  --bg:      #f1f5f9;
-  --bg2:     #ffffff;
-  --border:  rgba(0,0,0,0.08);
-  --border2: rgba(0,0,0,0.14);
-  --text:    #0f172a;
-  --text2:   #1e293b;
-  --text3:   #475569;
-  --text4:   #94a3b8;
-  --text5:   #cbd5e1;
-  --card:    rgba(0,0,0,0.02);
-  --input:   rgba(0,0,0,0.05);
-  --hover:   rgba(0,0,0,0.04);
-  --sidebar: rgba(255,255,255,0.95);
+.dark {
+  --bg:#09090e; --bg2:#111120; --bg3:rgba(15,15,30,0.7);
+  --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.14);
+  --text:#ffffff; --text2:#e2e8f0; --text3:#94a3b8;
+  --text4:#64748b; --text5:#475569;
+  --card:rgba(255,255,255,0.015); --input:rgba(0,0,0,0.3);
+  --hover:rgba(255,255,255,0.04); --sidebar:rgba(9,9,14,0.8);
+  --shadow:0 1px 3px rgba(0,0,0,0.3);
 }
-
-body { background: var(--bg); color: var(--text); font-family: 'DM Sans',system-ui,sans-serif; }
-::-webkit-scrollbar { width:4px; height:4px; }
-::-webkit-scrollbar-track { background:transparent; }
-::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
-.dark input[type="date"]::-webkit-calendar-picker-indicator { filter:invert(1) opacity(.4); }
-input[type="date"]::-webkit-calendar-picker-indicator { cursor:pointer; }
-::selection { background:rgba(99,102,241,.25); }
+body { background:var(--bg); color:var(--text); font-family:'DM Sans',system-ui,sans-serif; }
+* { transition: background-color 0.15s, border-color 0.15s, color 0.15s; }
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.dark input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1) opacity(.4)}
+input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer}
+::selection{background:rgba(99,102,241,.25)}
